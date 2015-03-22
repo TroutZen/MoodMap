@@ -9,8 +9,12 @@ module.exports = function(){
 
 	// connect to db
 	var db = mongoose.connection;
-	db.on('open', function(){
+	db.once('open', function(){
 		console.log('connected to db');
+	});
+
+	db.on('error', function (err) {
+		console.log('connection error', err);
 	});
 
 	
