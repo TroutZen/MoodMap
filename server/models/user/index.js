@@ -1,6 +1,7 @@
 var mongoose  = require('mongoose');
 var bcrypt 		= require('bcrypt');
 var Schema 		= mongoose.Schema;
+var Promise  	= require('bluebird');
 
 var SALT_WORK_FACTOR = 10;
 
@@ -65,4 +66,12 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 	});
 };
 
+// export the model, not the schema, table name becomes 'User' --> 'users'
+var User = mongoose.model('User', UserSchema);
+
+// Promisifies mongoose methods
+Promise.promisifyAll(User);
+Promise.promisifyAll(User.prototype);
+
+module.exports = User;
 

@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/TroutZen/MoodMap",
   "dependencies": {
+    "bcrypt": "^0.8.1",
     "bcryptjs": "^2.1.0",
+    "bluebird": "^2.9.14",
     "body-parser": "^1.12.2",
     "express": "^4.12.3",
     "express-jwt": "^2.1.0",
