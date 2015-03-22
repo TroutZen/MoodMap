@@ -24,6 +24,11 @@ var UserSchema = new Schema({
 	profile_pic: String,
 	symptoms: [String],
 	diagnoses: [String]
+	// TODO: Add nutrition with diet schema, supplement schema
+	// TODO: add fitness property
+	// TODO: add mind-body property
+	// TODO: add milestones/goals
+	// TODO: add bloodwork/health metrics
 });
 
 
