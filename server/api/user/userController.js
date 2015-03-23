@@ -1,32 +1,5 @@
 var User = require('../../models/user');
 
-// var UserSchema = new Schema({
-// 	username: {
-// 		type: String,
-// 		require: true,
-// 		unique: true,
-// 		lowercase: true
-// 	},
-
-// 	password: {
-// 		type: String,
-// 		required: true
-// 	},
-
-// 	firstname: String,
-// 	lastname: String,
-// 	age: Number,
-// 	dob: Date,
-// 	profile_pic: String,
-// 	symptoms: [String],
-// 	diagnoses: [String]
-// 	// TODO: Add nutrition with diet schema, supplement schema
-// 	// TODO: add fitness property
-// 	// TODO: add mind-body property
-// 	// TODO: add milestones/goals
-// 	// TODO: add bloodwork/health metrics
-// });
-
 var userController = {};
 
 // create new user
@@ -35,7 +8,7 @@ userController.create = function(req, res, next){
 	User.create(user, function(err, user){
 		if (err) {
 			console.log('ERROR <userController> could not create user');
-			res.status(500);
+			res.status(500).end();
 		}
 		else {
 			res.json(user);
@@ -50,7 +23,7 @@ userController.fetch = function(req, res, next) {
 	User.findById(userId, function(err, user){
 		if (err) {
 			console.log('ERROR <userController> could not fetch user');
-			res.status(500);
+			res.status(500).end();
 		} else {
 			res.json(user);
 			console.log('fetched user information', user);
@@ -69,7 +42,7 @@ userController.update = function(req, res, next) {
 	User.findByIdAndUpdate(userId, changes, function(err, user){
 		if (err) {
 			console.log('ERROR <userController> could not update user');
-			res.status(500);			
+			res.status(500).end();			
 		} else {
 			console.log('update successful for user');
 			res.status(200);
@@ -81,10 +54,11 @@ userController.update = function(req, res, next) {
 userController.delete = function(){
 	var userId = req.params.userId;
 	
+	// remove the user
 	User.findByIdAndRemove(userId, function(err, user){
 		if (err) {
 			console.log('ERROR <userController> could not update user');
-			res.status(500);			
+			res.status(500).end();
 		} else {
 			console.log('delete successful for user');
 			res.status(200);
@@ -92,6 +66,17 @@ userController.delete = function(){
 	});	
 };
 
+// fetches the full list of the users
+userController.list = function(){
+	User.find({}, function(err, users){
+		if (err) {
+			console.log('ERROR <userController> could not update user');
+			res.status(500).end();
+		} else {
+			console.log('fetch successful for all users');
+			res.json(users);
+		}
+	});
+};
+
 module.exports = userController;
-
-

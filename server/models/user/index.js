@@ -35,6 +35,7 @@ var UserSchema = new Schema({
 
 // salt/hash the pw
 UserSchema.pre('save', function(next){
+	console.log('hasing password...');
 	var user = this;
 
 	// only hash the pw if it has been modified or is new
