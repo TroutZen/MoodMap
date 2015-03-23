@@ -58,18 +58,38 @@ userController.fetch = function(req, res, next) {
 	});
 };
 
+// update the user's profile data
 userController.update = function(req, res, next) {
 	var userId = req.params.userId;
 
 	// changes is an object of properties to update
 	var changes = req.body;
 
+	// update the user
 	User.findByIdAndUpdate(userId, changes, function(err, user){
 		if (err) {
 			console.log('ERROR <userController> could not update user');
 			res.status(500);			
+		} else {
+			console.log('update successful for user');
+			res.status(200);
 		}
 	});
+};
+
+// deletes the user from the db
+userController.delete = function(){
+	var userId = req.params.userId;
+	
+	User.findByIdAndRemove(userId, function(err, user){
+		if (err) {
+			console.log('ERROR <userController> could not update user');
+			res.status(500);			
+		} else {
+			console.log('delete successful for user');
+			res.status(200);
+		}
+	});	
 };
 
 module.exports = userController;
